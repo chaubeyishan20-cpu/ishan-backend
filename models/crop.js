@@ -8,8 +8,7 @@ const cropSchema = new mongoose.Schema({
   soilType: { type: String, required: true },
   waterNeeds: { type: String, required: true }, // e.g., Low/Medium/High
   fertilizer: { type: String, required: true },
-  minTemp: { type: Number, required: true }, // minimum suitable temperature
-  maxTemp: { type: Number, required: true }, // maximum suitable temperature
+ 
 });
 
 
