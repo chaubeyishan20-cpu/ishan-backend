@@ -1,14 +1,15 @@
 import mongoose from "mongoose";
 
-const CropSchema = new mongoose.Schema({
+const cropSchema = new mongoose.Schema({
   name: { type: String, required: true },
   botanical_name: { type: String, required: true },
   description: { type: String, required: true },
-  season: { type: String, required: true },
-  soilType: { type: String, required: true },
-  waterNeeds: { type: String, required: true },
-  fertilizer: { type: String, required: true },
-}, { timestamps: true });
+  season: { type: String },        // optional
+  soilType: { type: String },      // optional
+  waterNeeds: { type: String },    // optional
+  fertilizer: { type: String }     // optional
+});
 
-const Crop = mongoose.model("Crop", CropSchema);
+const Crop = mongoose.model("Crop", cropSchema);
+
 export default Crop;
