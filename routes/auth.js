@@ -4,10 +4,12 @@ import User from "../models/User.js";
 
 const router = express.Router();
 
-// Signup route
+// Signup
 router.post("/signup", async (req, res) => {
   try {
     const { name, email, password } = req.body;
+
+    // Check if user exists
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ message: "User already exists" });
 
@@ -22,10 +24,11 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// Login route
+// Login
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
+
     const user = await User.findOne({ email });
     if (!user) return res.status(400).json({ message: "User not found" });
 

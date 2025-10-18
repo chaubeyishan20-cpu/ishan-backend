@@ -19,3 +19,4 @@ mongoose.connect(process.env.MONGO_URI)
     mongoose.disconnect();
   })
   .catch((err) => console.error("MongoDB connection error ❌", err));
+  
