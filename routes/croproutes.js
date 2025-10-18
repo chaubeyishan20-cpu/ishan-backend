@@ -3,26 +3,14 @@ import Crop from "../models/crop.js";
 
 const router = express.Router();
 
-// Get all crops
-router.get("/", async (req, res) => {
+router.get("/search", async (req, res) => {
   try {
-    const crops = await Crop.find();
-    res.json(crops);
+    const name = req.query.name?.toLowerCase();
+    const crop = await Crop.findOne({ name: { $regex: new RegExp(`^${name}$`, "i") } });
+    if (!crop) return res.status(404).json({ message: "Crop not found" });
+    res.json(crop);
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Error fetching crops" });
-  }
-});
-
-// Add a new crop
-router.post("/", async (req, res) => {
-  try {
-    const crop = new Crop(req.body);
-    await crop.save();
-    res.status(201).json({ message: "Crop added successfully!" });
-  } catch (error) {
-    console.error(error);
-    res.status(400).json({ message: "Failed to add crop" });
+    res.status(500).json({ message: "Server error" });
   }
 });
 
