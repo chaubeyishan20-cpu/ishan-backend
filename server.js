@@ -17,6 +17,7 @@ app.use(express.json());
 app.use("/api/crops", cropRoutes);  
 app.use("/api", authRoutes); 
 
+
 app.get("/", (req, res) => {
   res.send("Backend API is running 🚀");
 });
