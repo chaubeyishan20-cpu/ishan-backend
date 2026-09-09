@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import authRoutes from "./routes/auth.js"; 
 import cropRoutes from "./routes/croproutes.js"; 
+import marketRoutes from "./routes/marketRoutes.js"; 
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 
 // Routes
 app.use("/api/crops", cropRoutes);  
+app.use("/api/listings", marketRoutes);
 app.use("/api", authRoutes); 
 
 
