@@ -448,7 +448,635 @@
     "soilType": "Light sandy loam soil",
     "waterNeeds": "Low; sensitive to waterlogging",
     "fertilizer": "NPK 80:40:40 kg/ha"
+  },
+  {
+    "name": "Moong",
+    "botanical_name": "Vigna radiata",
+    "description": "A quick-maturing pulse used in dal, sprouts and snacks.",
+    "season": "Kharif",
+    "soilType": "Well-drained loamy soil",
+    "waterNeeds": "Low; avoid waterlogging",
+    "fertilizer": "NPK 20:40:20 kg/ha"
+  },
+  {
+    "name": "Urad",
+    "botanical_name": "Vigna mungo",
+    "description": "Black gram used in dal, papad and idli batter.",
+    "season": "Kharif",
+    "soilType": "Loam to clay-loam",
+    "waterNeeds": "Low to moderate",
+    "fertilizer": "NPK 20:40:20 kg/ha"
+  },
+  {
+    "name": "Horse Gram",
+    "botanical_name": "Macrotyloma uniflorum",
+    "description": "A hardy pulse grown on poor soils for food and fodder.",
+    "season": "Kharif and Rabi",
+    "soilType": "Red lateritic soil",
+    "waterNeeds": "Very low; drought hardy",
+    "fertilizer": "NPK 15:30:15 kg/ha"
+  },
+  {
+    "name": "Moth Bean",
+    "botanical_name": "Vigna aconitifolia",
+    "description": "A drought-tolerant pulse of arid Rajasthan.",
+    "season": "Kharif",
+    "soilType": "Sandy loam",
+    "waterNeeds": "Very low",
+    "fertilizer": "NPK 15:30:15 kg/ha"
+  },
+  {
+    "name": "Cowpea",
+    "botanical_name": "Vigna unguiculata",
+    "description": "Pulse-cum-fodder crop with heat tolerance.",
+    "season": "Kharif",
+    "soilType": "Sandy loam to loam",
+    "waterNeeds": "Low; avoid excess moisture",
+    "fertilizer": "NPK 20:40:20 kg/ha"
+  },
+  {
+    "name": "Sesame",
+    "botanical_name": "Sesamum indicum",
+    "description": "Oilseed grown for seed, sesame oil and tahini.",
+    "season": "Kharif",
+    "soilType": "Well-drained light loam",
+    "waterNeeds": "Low to moderate",
+    "fertilizer": "NPK 40:20:20 kg/ha"
+  },
+  {
+    "name": "Niger Seed",
+    "botanical_name": "Guizotia abyssinica",
+    "description": "Minor oilseed of tribal hills, used for edible oil.",
+    "season": "Kharif",
+    "soilType": "Red loamy and shallow soil",
+    "waterNeeds": "Low",
+    "fertilizer": "NPK 30:20:10 kg/ha"
+  },
+  {
+    "name": "Linseed",
+    "botanical_name": "Linum usitatissimum",
+    "description": "Flax grown for oil and fibre (flaxseed).",
+    "season": "Rabi",
+    "soilType": "Loam to clay-loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 60:30:30 kg/ha"
+  },
+  {
+    "name": "Safflower",
+    "botanical_name": "Carthamus tinctorius",
+    "description": "Thorny oilseed grown in rain-fed rabi areas.",
+    "season": "Rabi",
+    "soilType": "Deep black soil",
+    "waterNeeds": "Low",
+    "fertilizer": "NPK 40:30:20 kg/ha"
+  },
+  {
+    "name": "Castor",
+    "botanical_name": "Ricinus communis",
+    "description": "Industrial oilseed for castor oil and derivatives.",
+    "season": "Kharif",
+    "soilType": "Well-drained sandy loam",
+    "waterNeeds": "Low to moderate",
+    "fertilizer": "NPK 60:40:30 kg/ha"
+  },
+  {
+    "name": "Rapeseed",
+    "botanical_name": "Brassica rapa",
+    "description": "Rapeseed-mustard group oilseed of rabi season.",
+    "season": "Rabi",
+    "soilType": "Loam to clay-loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 80:40:30 kg/ha"
+  },
+  {
+    "name": "Finger Millet",
+    "botanical_name": "Eleusine coracana",
+    "description": "Ragi, a nutritious millet with excellent storage life.",
+    "season": "Kharif",
+    "soilType": "Red and lateritic soil",
+    "waterNeeds": "Low to moderate",
+    "fertilizer": "NPK 40:20:20 kg/ha"
+  },
+  {
+    "name": "Foxtail Millet",
+    "botanical_name": "Setaria italica",
+    "description": "Short-duration millet suited to dry zones.",
+    "season": "Kharif",
+    "soilType": "Sandy loam",
+    "waterNeeds": "Low; drought tolerant",
+    "fertilizer": "NPK 30:20:20 kg/ha"
+  },
+  {
+    "name": "Little Millet",
+    "botanical_name": "Panicum sumatrense",
+    "description": "Small-seeded millet grown in marginal uplands.",
+    "season": "Kharif",
+    "soilType": "Sandy loam to laterite",
+    "waterNeeds": "Low",
+    "fertilizer": "NPK 20:20:10 kg/ha"
+  },
+  {
+    "name": "Kodo Millet",
+    "botanical_name": "Paspalum scrobiculatum",
+    "description": "Hardy millet for poor, stony soils.",
+    "season": "Kharif",
+    "soilType": "Poor gravelly soil",
+    "waterNeeds": "Very low",
+    "fertilizer": "NPK 20:20:10 kg/ha"
+  },
+  {
+    "name": "Barnyard Millet",
+    "botanical_name": "Echinochloa frumentacea",
+    "description": "Fastest-growing millet, matures in 45-60 days.",
+    "season": "Kharif",
+    "soilType": "Loam to clay-loam",
+    "waterNeeds": "Low to moderate",
+    "fertilizer": "NPK 20:20:10 kg/ha"
+  },
+  {
+    "name": "Proso Millet",
+    "botanical_name": "Panicum miliaceum",
+    "description": "Short-cycle millet for hills and dry tracts.",
+    "season": "Kharif and Summer",
+    "soilType": "Sandy loam",
+    "waterNeeds": "Low",
+    "fertilizer": "NPK 20:20:10 kg/ha"
+  },
+  {
+    "name": "Quinoa",
+    "botanical_name": "Chenopodium quinoa",
+    "description": "High-protein pseudocereal introduced in Himalayan valleys.",
+    "season": "Rabi",
+    "soilType": "Well-drained sandy loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 60:30:30 kg/ha"
+  },
+  {
+    "name": "Sweet Potato",
+    "botanical_name": "Ipomoea batatas",
+    "description": "Root crop rich in beta-carotene, grown on mounds.",
+    "season": "Kharif",
+    "soilType": "Sandy loam",
+    "waterNeeds": "Moderate; avoid waterlogging",
+    "fertilizer": "NPK 60:40:50 kg/ha"
+  },
+  {
+    "name": "Tapioca",
+    "botanical_name": "Manihot esculenta",
+    "description": "Cassava, a starchy root crop of Kerala and Tamil Nadu.",
+    "season": "Kharif",
+    "soilType": "Light sandy loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 90:45:90 kg/ha"
+  },
+  {
+    "name": "Greater Yam",
+    "botanical_name": "Dioscorea alata",
+    "description": "Tuber crop for food and traditional medicines.",
+    "season": "Kharif",
+    "soilType": "Loamy soil with good drainage",
+    "waterNeeds": "Moderate to high",
+    "fertilizer": "NPK 80:40:80 kg/ha"
+  },
+  {
+    "name": "Taro",
+    "botanical_name": "Colocasia esculenta",
+    "description": "Arbi, a corm vegetable cooked as curry or chips.",
+    "season": "Kharif",
+    "soilType": "Clay-loam with moisture",
+    "waterNeeds": "High",
+    "fertilizer": "NPK 60:40:60 kg/ha"
+  },
+  {
+    "name": "Ginger",
+    "botanical_name": "Zingiber officinale",
+    "description": "Rhizome spice used fresh, dried and in masala blends.",
+    "season": "Kharif",
+    "soilType": "Rich well-drained loam",
+    "waterNeeds": "High; needs shade",
+    "fertilizer": "NPK 60:40:50 kg/ha"
+  },
+  {
+    "name": "Turmeric",
+    "botanical_name": "Curcuma longa",
+    "description": "Rhizome crop for turmeric powder and curcumin.",
+    "season": "Kharif",
+    "soilType": "Fertile sandy loam",
+    "waterNeeds": "High",
+    "fertilizer": "NPK 60:40:60 kg/ha"
+  },
+  {
+    "name": "Coriander",
+    "botanical_name": "Coriandrum sativum",
+    "description": "Leaf-spice and seed crop of rabi season.",
+    "season": "Rabi",
+    "soilType": "Loam to clay-loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 30:20:20 kg/ha"
+  },
+  {
+    "name": "Cumin",
+    "botanical_name": "Cuminum cyminum",
+    "description": "Jeera, a prized seed spice of Gujarat and Rajasthan.",
+    "season": "Rabi",
+    "soilType": "Light well-drained loam",
+    "waterNeeds": "Low",
+    "fertilizer": "NPK 20:30:20 kg/ha"
+  },
+  {
+    "name": "Fennel",
+    "botanical_name": "Foeniculum vulgare",
+    "description": "Saunf, an aromatic seed spice of Gujarat.",
+    "season": "Rabi",
+    "soilType": "Medium black soil",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 30:30:20 kg/ha"
+  },
+  {
+    "name": "Fenugreek",
+    "botanical_name": "Trigonella foenum-graecum",
+    "description": "Methi, used as leafy vegetable and seed spice.",
+    "season": "Rabi",
+    "soilType": "Loam to clay-loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 20:20:20 kg/ha"
+  },
+  {
+    "name": "Cardamom",
+    "botanical_name": "Elettaria cardamomum",
+    "description": "Elaichi, the queen of spices, grown under shade.",
+    "season": "Perennial",
+    "soilType": "Humus-rich laterite",
+    "waterNeeds": "High",
+    "fertilizer": "NPK 120:150:300 kg/ha"
+  },
+  {
+    "name": "Black Pepper",
+    "botanical_name": "Piper nigrum",
+    "description": "Vine spice trained on standards in humid tropics.",
+    "season": "Perennial",
+    "soilType": "Laterite with rich organic matter",
+    "waterNeeds": "High",
+    "fertilizer": "NPK 50:40:120 kg/ha"
+  },
+  {
+    "name": "Clove",
+    "botanical_name": "Syzygium aromaticum",
+    "description": "Dried flower buds used as spice and in medicine.",
+    "season": "Perennial",
+    "soilType": "Deep laterite soil",
+    "waterNeeds": "Moderate to high",
+    "fertilizer": "NPK 40:30:200 kg/ha"
+  },
+  {
+    "name": "Nutmeg",
+    "botanical_name": "Myristica fragrans",
+    "description": "Spice tree giving nutmeg and mace.",
+    "season": "Perennial",
+    "soilType": "Deep fertile loam",
+    "waterNeeds": "Moderate to high",
+    "fertilizer": "NPK 100:50:200 kg/ha"
+  },
+  {
+    "name": "Betel",
+    "botanical_name": "Piper betle",
+    "description": "Pan, a leaf crop grown on supported vines.",
+    "season": "Perennial",
+    "soilType": "Well-drained fertile loam",
+    "waterNeeds": "High",
+    "fertilizer": "NPK 120:60:120 kg/ha"
+  },
+  {
+    "name": "Cocoa",
+    "botanical_name": "Theobroma cacao",
+    "description": "Chocolate bean crop grown as intercrop with coconut.",
+    "season": "Perennial",
+    "soilType": "Deep alluvial loam",
+    "waterNeeds": "High",
+    "fertilizer": "NPK 100:50:150 kg/ha"
+  },
+  {
+    "name": "Arecanut",
+    "botanical_name": "Areca catechu",
+    "description": "Supari, a palm crop of the west coast and NE India.",
+    "season": "Perennial",
+    "soilType": "Deep lateritic loam",
+    "waterNeeds": "High",
+    "fertilizer": "NPK 100:40:200 kg/ha"
+  },
+  {
+    "name": "Cashew",
+    "botanical_name": "Anacardium occidentale",
+    "description": "Nut crop ideal for coastal laterite soils.",
+    "season": "Perennial",
+    "soilType": "Laterite and coastal sand",
+    "waterNeeds": "Low to moderate",
+    "fertilizer": "NPK 750:330:375 g/tree"
+  },
+  {
+    "name": "Almond",
+    "botanical_name": "Prunus dulcis",
+    "description": "Temperate nut tree of Kashmir and Himachal.",
+    "season": "Rabi",
+    "soilType": "Deep sandy loam, alkaline ok",
+    "waterNeeds": "Moderate (frost sensitive)",
+    "fertilizer": "NPK 100:60:60 kg/ha"
+  },
+  {
+    "name": "Walnut",
+    "botanical_name": "Juglans regia",
+    "description": "High-value nut for cold valley regions.",
+    "season": "Perennial",
+    "soilType": "Deep alluvial loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 100:60:60 kg/ha"
+  },
+  {
+    "name": "Fig",
+    "botanical_name": "Ficus carica",
+    "description": "Anjeer, soft fruit grown in dry warm regions.",
+    "season": "Perennial",
+    "soilType": "Light sandy loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 60:40:60 kg/ha"
+  },
+  {
+    "name": "Sapota",
+    "botanical_name": "Manilkara zapota",
+    "description": "Chikoo, a delicious sap fruit of coastal belts.",
+    "season": "Perennial",
+    "soilType": "Well-drained red laterite",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 150:75:150 kg/ha"
+  },
+  {
+    "name": "Jackfruit",
+    "botanical_name": "Artocarpus heterophyllus",
+    "description": "Largest tree fruit, eaten ripe and as vegetable.",
+    "season": "Perennial",
+    "soilType": "Well-drained loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 150:75:150 kg/ha"
+  },
+  {
+    "name": "Custard Apple",
+    "botanical_name": "Annona squamosa",
+    "description": "Sitaphal, a drought-hardy fruit of Deccan plains.",
+    "season": "Perennial",
+    "soilType": "Light sandy loam",
+    "waterNeeds": "Low",
+    "fertilizer": "NPK 60:40:40 kg/ha"
+  },
+  {
+    "name": "Litchi",
+    "botanical_name": "Litchi chinensis",
+    "description": "Delicious summer fruit of Bihar and Uttarakhand.",
+    "season": "Perennial",
+    "soilType": "Deep loam with mild acidity",
+    "waterNeeds": "High",
+    "fertilizer": "NPK 250:125:250 kg/ha"
+  },
+  {
+    "name": "Kiwi",
+    "botanical_name": "Actinidia deliciosa",
+    "description": "Climatic fruit of Himalayan mid-hills.",
+    "season": "Perennial",
+    "soilType": "Deep fertile loam",
+    "waterNeeds": "High",
+    "fertilizer": "NPK 120:60:60 kg/ha"
+  },
+  {
+    "name": "Strawberry",
+    "botanical_name": "Fragaria ananassa",
+    "description": "Quick fruit for hills and peri-urban farms.",
+    "season": "Rabi",
+    "soilType": "Sandy loam with high organic matter",
+    "waterNeeds": "Moderate to high",
+    "fertilizer": "NPK 80:40:40 kg/ha"
+  },
+  {
+    "name": "Dragon Fruit",
+    "botanical_name": "Hylocereus undatus",
+    "description": "Cactus fruit gaining popularity across India.",
+    "season": "Perennial",
+    "soilType": "Sandy well-drained soil",
+    "waterNeeds": "Low",
+    "fertilizer": "NPK 60:40:60 kg/ha"
+  },
+  {
+    "name": "Avocado",
+    "botanical_name": "Persea americana",
+    "description": "Butter fruit grown in south Indian gardens.",
+    "season": "Perennial",
+    "soilType": "Well-drained loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 150:75:150 kg/ha"
+  },
+  {
+    "name": "Beetroot",
+    "botanical_name": "Beta vulgaris",
+    "description": "Root vegetable for salads and pickles.",
+    "season": "Rabi",
+    "soilType": "Sandy loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 80:40:40 kg/ha"
+  },
+  {
+    "name": "Turnip",
+    "botanical_name": "Brassica rapa subsp. rapa",
+    "description": "Cool-season root vegetable.",
+    "season": "Rabi",
+    "soilType": "Sandy loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 80:40:40 kg/ha"
+  },
+  {
+    "name": "Radish",
+    "botanical_name": "Raphanus sativus",
+    "description": "Fast root vegetable, ready in 30-45 days.",
+    "season": "Rabi",
+    "soilType": "Light sandy loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 60:30:30 kg/ha"
+  },
+  {
+    "name": "Broccoli",
+    "botanical_name": "Brassica oleracea var. italica",
+    "description": "Nutrient-dense headed vegetable of cool season.",
+    "season": "Rabi",
+    "soilType": "Fertile loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 120:60:60 kg/ha"
+  },
+  {
+    "name": "Lettuce",
+    "botanical_name": "Lactuca sativa",
+    "description": "Leaf crop for salads, grown in cool months.",
+    "season": "Rabi",
+    "soilType": "Sandy loam",
+    "waterNeeds": "High",
+    "fertilizer": "NPK 60:40:40 kg/ha"
+  },
+  {
+    "name": "Asparagus",
+    "botanical_name": "Asparagus officinalis",
+    "description": "Perennial vegetable for tender spears.",
+    "season": "Perennial",
+    "soilType": "Sandy well-drained loam",
+    "waterNeeds": "Moderate to high",
+    "fertilizer": "NPK 80:80:80 kg/ha"
+  },
+  {
+    "name": "Mint",
+    "botanical_name": "Mentha species",
+    "description": "Pudina, aromatic herb and volatile-oil crop.",
+    "season": "Rabi",
+    "soilType": "Rich loam near water",
+    "waterNeeds": "High",
+    "fertilizer": "NPK 100:60:60 kg/ha"
+  },
+  {
+    "name": "Lemongrass",
+    "botanical_name": "Cymbopogon citratus",
+    "description": "Aromatic grass for lemongrass oil.",
+    "season": "Perennial",
+    "soilType": "Sandy loam",
+    "waterNeeds": "Low",
+    "fertilizer": "NPK 40:40:40 kg/ha"
+  },
+  {
+    "name": "Oats",
+    "botanical_name": "Avena sativa",
+    "description": "Feed and fodder cereal of cool season.",
+    "season": "Rabi",
+    "soilType": "Loam to clay-loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 60:30:30 kg/ha"
+  },
+  {
+    "name": "Ridge Gourd",
+    "botanical_name": "Luffa acutangula",
+    "description": "Tori, a summer-kharif trailing vegetable.",
+    "season": "Kharif",
+    "soilType": "Rich loamy soil",
+    "waterNeeds": "Moderate to high",
+    "fertilizer": "NPK 60:40:40 kg/ha"
+  },
+  {
+    "name": "Snake Gourd",
+    "botanical_name": "Trichosanthes cucumerina",
+    "description": "Chichinda, long trailing gourd of rainy season.",
+    "season": "Kharif",
+    "soilType": "Loam with organic matter",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 60:40:40 kg/ha"
+  },
+  {
+    "name": "Ash Gourd",
+    "botanical_name": "Benincasa hispida",
+    "description": "Petha gourd stored long after harvest.",
+    "season": "Kharif",
+    "soilType": "Loam to sandy loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 60:40:40 kg/ha"
+  },
+  {
+    "name": "Napier Grass",
+    "botanical_name": "Pennisetum purpureum",
+    "description": "High-yield perennial fodder for dairy.",
+    "season": "Perennial",
+    "soilType": "Well-drained loam",
+    "waterNeeds": "Moderate to high",
+    "fertilizer": "NPK 120:60:40 kg/ha"
+  },
+  {
+    "name": "Lucerne",
+    "botanical_name": "Medicago sativa",
+    "description": "Alfalfa, protein-rich perennial fodder.",
+    "season": "Perennial",
+    "soilType": "Deep fertile loam, neutral pH",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 40:60:40 kg/ha"
+  },
+  {
+    "name": "Berseem",
+    "botanical_name": "Trifolium alexandrinum",
+    "description": "Egyptian clover, the top rabi fodder of Punjab.",
+    "season": "Rabi",
+    "soilType": "Loam to clay-loam",
+    "waterNeeds": "High",
+    "fertilizer": "NPK 20:60:20 kg/ha"
+  },
+  {
+    "name": "Mulberry",
+    "botanical_name": "Morus alba",
+    "description": "Leaf crop for silkworm rearing (sericulture).",
+    "season": "Perennial",
+    "soilType": "Deep loamy soil",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 300:120:120 kg/ha"
+  },
+  {
+    "name": "Mushroom",
+    "botanical_name": "Agaricus bisporus",
+    "description": "Button mushroom grown in controlled compost beds.",
+    "season": "All year",
+    "soilType": "Composted straw substrate",
+    "waterNeeds": "Moderate (humidity critical)",
+    "fertilizer": "Compost + gypsum"
+  },
+  {
+    "name": "Vanilla",
+    "botanical_name": "Vanilla planifolia",
+    "description": "High-value orchid spice, hand-pollinated.",
+    "season": "Perennial",
+    "soilType": "Loam with rich humus",
+    "waterNeeds": "Moderate",
+    "fertilizer": "Organic manures"
+  },
+  {
+    "name": "Saffron",
+    "botanical_name": "Crocus sativus",
+    "description": "Priciest spice, suited to Kashmir's cold dry autumn.",
+    "season": "Rabi",
+    "soilType": "Well-drained sandy loam",
+    "waterNeeds": "Low",
+    "fertilizer": "Organic manures"
+  },
+  {
+    "name": "Tamarind",
+    "botanical_name": "Tamarindus indica",
+    "description": "Imli, hardy tree yielding tart pods.",
+    "season": "Perennial",
+    "soilType": "Deep loam, tolerates poor soil",
+    "waterNeeds": "Low",
+    "fertilizer": "NPK 120:60:60 kg/ha"
+  },
+  {
+    "name": "Curry Leaf",
+    "botanical_name": "Murraya koenigii",
+    "description": "Leaf spice bush harvested round the year.",
+    "season": "Perennial",
+    "soilType": "Well-drained loam",
+    "waterNeeds": "Moderate",
+    "fertilizer": "NPK 40:40:40 kg/ha"
+  },
+  {
+    "name": "Amla",
+    "botanical_name": "Phyllanthus emblica",
+    "description": "Indian gooseberry, a hardy vitamin-C fruit tree.",
+    "season": "Perennial",
+    "soilType": "Sandy loam to calcareous",
+    "waterNeeds": "Low",
+    "fertilizer": "NPK 80:40:80 kg/ha"
+  },
+  {
+    "name": "Peach",
+    "botanical_name": "Prunus persica",
+    "description": "Stone fruit of Himalayan temperate orchards.",
+    "season": "Rabi",
+    "soilType": "Deep sandy loam",
+    "waterNeeds": "Moderate (frost sensitive)",
+    "fertilizer": "NPK 100:60:100 kg/ha"
   }
 ]
-
-
