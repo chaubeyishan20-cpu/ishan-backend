@@ -18,6 +18,7 @@ const ListingSchema = new mongoose.Schema({
   location: { type: String, required: true, trim: true },
   contactPhone: { type: String, trim: true, default: "" },
   description: { type: String, trim: true, default: "" },
+  photos: { type: [String], default: [] },
   status: { type: String, enum: ["available", "reserved", "sold"], default: "available" },
   offers: { type: [OfferSchema], default: [] },
 }, { timestamps: true });

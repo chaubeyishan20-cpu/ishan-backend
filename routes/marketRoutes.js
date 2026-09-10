@@ -1,58 +1,107 @@
 import express from "express";
+import mongoose from "mongoose";
+import multer from "multer";
+import path from "path";
+import { fileURLToPath } from "url";
 import Listing from "../models/Listing.js";
+import Order from "../models/Order.js";
+import Review from "../models/Review.js";
 import auth from "../middleware/auth.js";
+import { notify } from "../utils/notify.js";
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const UPLOAD_DIR = path.join(__dirname, "..", "uploads");
+
+const storage = multer.diskStorage({
+  destination: (_req, _file, cb) => cb(null, UPLOAD_DIR),
+  filename: (_req, file, cb) =>
+    cb(null, `${Date.now()}-${Math.round(Math.random() * 1e9)}${path.extname(file.originalname) || ".jpg"}`),
+});
+
+const imageFilter = (_req, file, cb) => {
+  if (file.mimetype.startsWith("image/")) cb(null, true);
+  else cb(new Error("Only image files are allowed"));
+};
+
+const upload = multer({ storage, fileFilter: imageFilter, limits: { fileSize: 5 * 1024 * 1024 } });
+const uploadPhotos = upload.array("photos", 3);
 
 const router = express.Router();
 
-// List all available listings (public), newest first, with farmer info
+async function listingRatings(listings) {
+  const ids = listings.map((l) => l._id);
+  if (ids.length === 0) return new Map();
+  const rows = await Review.aggregate([
+    { $match: { listing: { $in: ids } } },
+    { $group: { _id: "$listing", avg: { $avg: "$rating" }, count: { $sum: 1 } } },
+  ]);
+  return new Map(rows.map((r) => [r._id.toString(), r]));
+}
+
+function withRating(listing, ratings) {
+  const l = listing.toObject ? listing.toObject() : listing;
+  const r = ratings.get(listing._id.toString());
+  l.rating = r ? { avg: Math.round(r.avg * 10) / 10, count: r.count } : { avg: 0, count: 0 };
+  return l;
+}
+
+// List all available listings (public), newest first, with farmer info + rating
 router.get("/", async (req, res) => {
   try {
     const listings = await Listing.find({ status: "available" })
       .populate("user", "name email role")
       .sort({ createdAt: -1 })
       .limit(parseInt(req.query.limit, 10) || 100);
-    res.json(listings);
+    const ratings = await listingRatings(listings);
+    res.json(listings.map((l) => withRating(l, ratings)));
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
   }
 });
 
-// Create a listing (farmer only)
-router.post("/", auth, async (req, res) => {
-  try {
-    if (req.userRole !== "farmer") {
-      return res.status(403).json({ message: "Only farmers can post listings" });
-    }
+// Create a listing (farmer only) — supports up to 3 photos
+router.post("/", auth, (req, res) => {
+  uploadPhotos(req, res, async (err) => {
+    if (err) return res.status(400).json({ message: err.message });
+    try {
+      if (req.userRole !== "farmer") {
+        return res.status(403).json({ message: "Only farmers can post listings" });
+      }
 
-    const { cropName, quantity, unit, pricePerUnit, location, contactPhone, description } = req.body;
-    if (!cropName || !quantity || !pricePerUnit || !location) {
-      return res.status(400).json({ message: "Crop, quantity, price and location are required" });
-    }
+      const { cropName, quantity, unit, pricePerUnit, location, contactPhone, description } = req.body;
+      if (!cropName || !quantity || !pricePerUnit || !location) {
+        return res.status(400).json({ message: "Crop, quantity, price and location are required" });
+      }
 
-    const listing = new Listing({
-      user: req.userId,
-      cropName,
-      quantity: Number(quantity),
-      unit,
-      pricePerUnit: Number(pricePerUnit),
-      location,
-      contactPhone,
-      description,
-    });
-    await listing.save();
-    res.status(201).json(listing);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ message: "Server error" });
-  }
+      const photos = (req.files || []).map((f) => `/uploads/${f.filename}`);
+
+      const listing = new Listing({
+        user: req.userId,
+        cropName,
+        quantity: Number(quantity),
+        unit,
+        pricePerUnit: Number(pricePerUnit),
+        location,
+        contactPhone,
+        description,
+        photos,
+      });
+      await listing.save();
+      res.status(201).json(listing);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Server error" });
+    }
+  });
 });
 
 // My listings (protected)
 router.get("/mine", auth, async (req, res) => {
   try {
     const listings = await Listing.find({ user: req.userId }).sort({ createdAt: -1 });
-    res.json(listings);
+    const ratings = await listingRatings(listings);
+    res.json(listings.map((l) => withRating(l, ratings)));
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
@@ -72,10 +121,55 @@ router.get("/myoffers", auth, async (req, res) => {
   }
 });
 
+// Reviews for a listing (public)
+router.get("/:id/reviews", async (req, res) => {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.status(404).json({ message: "Listing not found" });
+    }
+    const reviews = await Review.find({ listing: req.params.id })
+      .populate("author", "name")
+      .sort({ createdAt: -1 })
+      .limit(50);
+    res.json(reviews);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
+// Add a review for a listing (one per author per listing, upsert)
+router.post("/:id/reviews", auth, async (req, res) => {
+  try {
+    if (!mongoose.isValidObjectId(req.params.id)) {
+      return res.status(404).json({ message: "Listing not found" });
+    }
+    const listing = await Listing.findById(req.params.id);
+    if (!listing) return res.status(404).json({ message: "Listing not found" });
+    if (listing.user.toString() === req.userId) {
+      return res.status(400).json({ message: "You can't review your own listing" });
+    }
+    const rating = Number(req.body.rating);
+    if (!rating || rating < 1 || rating > 5) {
+      return res.status(400).json({ message: "Rating must be between 1 and 5" });
+    }
+    const review = await Review.findOneAndUpdate(
+      { listing: listing._id, author: req.userId },
+      { $set: { rating, comment: req.body.comment || "", authorName: req.body.authorName || "" } },
+      { new: true, upsert: true }
+    );
+    res.status(201).json(review);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 // Make an offer on a listing (buyer)
 router.post("/:id/offer", auth, async (req, res) => {
   try {
-    const listing = await Listing.findById(req.params.id);
+    const id = mongoose.isValidObjectId(req.params.id) ? req.params.id : null;
+    const listing = id ? await Listing.findById(id) : null;
     if (!listing) return res.status(404).json({ message: "Listing not found" });
     if (listing.user.toString() === req.userId) {
       return res.status(400).json({ message: "You can't make an offer on your own listing" });
@@ -104,6 +198,11 @@ router.post("/:id/offer", auth, async (req, res) => {
       message: message || "",
     });
     await listing.save();
+    await notify(
+      listing.user,
+      `New offer on your ${listing.cropName} listing: ${quantity} ${listing.unit} @ ₹${proposedPrice}/${listing.unit}`,
+      "/marketplace"
+    );
     res.status(201).json(listing);
   } catch (error) {
     console.error(error);
@@ -111,7 +210,7 @@ router.post("/:id/offer", auth, async (req, res) => {
   }
 });
 
-// Accept an offer (owner only) → reserved
+// Accept an offer (owner only) → reserved + creates an Order
 router.post("/:id/offer/:offerId/accept", auth, async (req, res) => {
   try {
     const listing = await Listing.findById(req.params.id);
@@ -131,7 +230,25 @@ router.post("/:id/offer/:offerId/accept", auth, async (req, res) => {
     });
     listing.status = "reserved";
     await listing.save();
-    res.json(listing);
+
+    const order = new Order({
+      listing: listing._id,
+      buyer: offer.buyer,
+      seller: listing.user,
+      cropName: listing.cropName,
+      unit: listing.unit,
+      quantity: offer.quantity,
+      pricePerUnit: offer.proposedPrice,
+      location: listing.location,
+    });
+    await order.save();
+
+    await notify(
+      offer.buyer,
+      `Your offer on ${listing.cropName} was accepted! Order created (${offer.quantity} ${listing.unit} @ ₹${offer.proposedPrice}/${listing.unit}).`,
+      "/orders"
+    );
+    res.json({ listing, order });
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "Server error" });
@@ -153,6 +270,11 @@ router.post("/:id/offer/:offerId/reject", auth, async (req, res) => {
     }
     offer.status = "rejected";
     await listing.save();
+    await notify(
+      offer.buyer,
+      `Your offer on ${listing.cropName} was rejected.`,
+      "/marketplace"
+    );
     res.json(listing);
   } catch (error) {
     console.error(error);
@@ -173,6 +295,11 @@ router.post("/:id/mark-sold", auth, async (req, res) => {
       if (o.status === "pending") o.status = "rejected";
     });
     await listing.save();
+
+    const accepted = listing.offers.find((o) => o.status === "accepted");
+    if (accepted) {
+      await notify(accepted.buyer, `Your order for ${listing.cropName} is now complete.`, "/orders");
+    }
     res.json(listing);
   } catch (error) {
     console.error(error);
