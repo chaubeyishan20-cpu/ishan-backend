@@ -52,7 +52,7 @@ function withRating(listing, ratings) {
 router.get("/", async (req, res) => {
   try {
     const listings = await Listing.find({ status: "available" })
-      .populate("user", "name email role")
+      .populate("user", "name email role verified")
       .sort({ createdAt: -1 })
       .limit(parseInt(req.query.limit, 10) || 100);
     const ratings = await listingRatings(listings);
@@ -116,7 +116,7 @@ router.get("/mine", auth, async (req, res) => {
 router.get("/myoffers", auth, async (req, res) => {
   try {
     const listings = await Listing.find({ "offers.buyer": req.userId })
-      .populate("user", "name email role")
+      .populate("user", "name email role verified")
       .sort({ updatedAt: -1 });
     res.json(listings);
   } catch (error) {

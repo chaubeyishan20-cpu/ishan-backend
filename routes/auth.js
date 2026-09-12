@@ -27,19 +27,19 @@ const signToken = (user) =>
 // Signup
 router.post("/signup", validate(signupSchema), async (req, res) => {
   try {
-    const { name, email, password, role } = req.body;
+    const { name, email, password, role, location } = req.body;
 
     const existingUser = await User.findOne({ email });
     if (existingUser) return res.status(400).json({ message: "User already exists" });
 
     const hashedPassword = await bcrypt.hash(password, 10);
-    const newUser = new User({ name, email, password: hashedPassword, role });
+    const newUser = new User({ name, email, password: hashedPassword, role, location });
     await newUser.save();
 
     res.status(201).json({
       message: "Signup successful!",
       token: signToken(newUser),
-      user: { id: newUser._id, name: newUser.name, email: newUser.email, role: newUser.role },
+      user: { id: newUser._id, name: newUser.name, email: newUser.email, role: newUser.role, location: newUser.location },
     });
   } catch (error) {
     console.error(error);

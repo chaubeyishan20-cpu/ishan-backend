@@ -29,6 +29,24 @@ router.get("/unread-count", auth, async (req, res) => {
   }
 });
 
+// Create a notification (used for price-drop alerts, weather alerts, etc.)
+router.post("/", auth, async (req, res) => {
+  try {
+    const { message, link, type } = req.body;
+    if (!message) return res.status(400).json({ message: "Message is required" });
+    const item = await Notification.create({
+      user: req.userId,
+      type: ["info", "success", "warning"].includes(type) ? type : "info",
+      message: String(message).slice(0, 500),
+      link: String(link || "/").slice(0, 200),
+    });
+    res.status(201).json(item);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server error" });
+  }
+});
+
 // Mark one notification as read
 router.patch("/read/:id", auth, async (req, res) => {
   try {

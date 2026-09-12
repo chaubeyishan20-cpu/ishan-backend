@@ -5,6 +5,7 @@ export const signupSchema = z.object({
   email: z.string().trim().toLowerCase().email('Invalid email address'),
   password: z.string().min(6, 'Password must be at least 6 characters').max(200, 'Password is too long'),
   role: z.enum(['farmer', 'buyer']).default('farmer'),
+  location: z.string().trim().max(200).optional().default(''),
 });
 
 export const loginSchema = z.object({
@@ -46,4 +47,10 @@ export const reviewSchema = z.object({
 
 export const orderStatusSchema = z.object({
   status: z.enum(['ordered', 'shipped', 'delivered'], 'Invalid status'),
+});
+
+export const chatSchema = z.object({
+  listingId: z.string().trim().min(1, 'Listing is required'),
+  receiverId: z.string().trim().min(1, 'Receiver is required'),
+  text: z.string().trim().min(1, 'Message is required').max(1000, 'Message is too long'),
 });

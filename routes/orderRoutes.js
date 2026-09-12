@@ -11,7 +11,7 @@ const router = express.Router();
 router.get("/buyer", auth, async (req, res) => {
   try {
     const orders = await Order.find({ buyer: req.userId })
-      .populate("seller", "name email")
+      .populate("seller", "name email location")
       .sort({ createdAt: -1 });
     res.json(orders);
   } catch (error) {
@@ -24,7 +24,7 @@ router.get("/buyer", auth, async (req, res) => {
 router.get("/seller", auth, async (req, res) => {
   try {
     const orders = await Order.find({ seller: req.userId })
-      .populate("buyer", "name email")
+      .populate("buyer", "name email location")
       .sort({ createdAt: -1 });
     res.json(orders);
   } catch (error) {
