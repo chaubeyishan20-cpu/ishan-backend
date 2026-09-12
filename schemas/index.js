@@ -26,7 +26,7 @@ export const listingSchema = z.object({
   quantity: z.coerce.number('Quantity must be a number').positive('Quantity must be positive'),
   unit: z.string().trim().min(1, 'Unit is required').max(30),
   pricePerUnit: z.coerce.number('Price must be a number').positive('Price must be positive'),
-  location: z.string().trim().max(200).optional().default(''),
+  location: z.string().trim().min(1, 'Location is required').max(200),
   contactPhone: z.string().trim().max(20).optional().default(''),
   description: z.string().trim().max(500).optional().default(''),
 });
