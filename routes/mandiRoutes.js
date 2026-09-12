@@ -3,6 +3,13 @@ import Crop from "../models/crop.js";
 
 const router = express.Router();
 
+// Major traded commodities — the usual "mandi board" crops. Only names present
+// in the crop catalog are used, with a fallback to the first few crops by name.
+const POPULAR = [
+  "Rice", "Wheat", "Maize", "Onion", "Tomato", "Potato", "Chickpea", "Groundnut",
+  "Mustard", "Cotton", "Soybean", "Sugarcane", "Turmeric", "Banana", "Mango", "Cabbage",
+];
+
 // Deterministic demo quote for a crop (mirrors the /crops/:name/prices series)
 const demoQuote = (name) => {
   let seed = 0;
@@ -17,14 +24,22 @@ const demoQuote = (name) => {
   };
 };
 
-// Market quote ticker for a handful of popular crops.
+const pickPopular = async () => {
+  const crops = await Crop.find({ name: { $in: POPULAR } }, { name: 1, _id: 0 });
+  const present = new Set(crops.map((c) => c.name));
+  const names = POPULAR.filter((n) => present.has(n));
+  if (names.length >= 6) return names;
+  const extras = await Crop.find({}, { name: 1, _id: 0 }).sort({ name: 1 }).limit(12);
+  return extras.map((c) => c.name);
+};
+
+// Market quote ticker for the main traded crops.
 // When MANDI_FEED_URL is configured (a real JSON feed returning
 // [{crop, price, unit, changePct}] for these crop names), it proxies that feed;
 // otherwise it returns clearly-labeled demo quotes so the UI always works.
 router.get("/quotes", async (req, res) => {
   try {
-    const crops = await Crop.find({}, { name: 1, _id: 0 }).sort({ name: 1 }).limit(8);
-    const names = crops.map((c) => c.name);
+    const names = await pickPopular();
     const fallback = {
       source: "demo",
       note: "Demo feed. Set MANDI_FEED_URL to proxy a real mandi price JSON feed.",
