@@ -1,6 +1,8 @@
 import express from "express";
 import Order from "../models/Order.js";
 import auth from "../middleware/auth.js";
+import validate from "../middleware/validate.js";
+import { orderStatusSchema } from "../schemas/index.js";
 import { notify } from "../utils/notify.js";
 
 const router = express.Router();
@@ -32,7 +34,7 @@ router.get("/seller", auth, async (req, res) => {
 });
 
 // Update order status (seller advances: ordered → shipped → delivered)
-router.patch("/:id/status", auth, async (req, res) => {
+router.patch("/:id/status", auth, validate(orderStatusSchema), async (req, res) => {
   try {
     const order = await Order.findById(req.params.id);
     if (!order) return res.status(404).json({ message: "Order not found" });

@@ -1,0 +1,26 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+
+jobs:
+  syntax-and-deps:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Syntax check all server source
+        run: |
+          for f in server.js routes/*.js models/*.js middleware/*.js schemas/*.js utils/*.js; do
+            node --check "$f"
+          done

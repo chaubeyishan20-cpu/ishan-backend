@@ -7,6 +7,9 @@ import Listing from "../models/Listing.js";
 import Order from "../models/Order.js";
 import Review from "../models/Review.js";
 import auth from "../middleware/auth.js";
+import validate from "../middleware/validate.js";
+import { listingLimiter } from "../middleware/rateLimiter.js";
+import { listingSchema, offerSchema, reviewSchema } from "../schemas/index.js";
 import { notify } from "../utils/notify.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -61,7 +64,7 @@ router.get("/", async (req, res) => {
 });
 
 // Create a listing (farmer only) — supports up to 3 photos
-router.post("/", auth, (req, res) => {
+router.post("/", auth, listingLimiter, (req, res) => {
   uploadPhotos(req, res, async (err) => {
     if (err) return res.status(400).json({ message: err.message });
     try {
@@ -69,19 +72,20 @@ router.post("/", auth, (req, res) => {
         return res.status(403).json({ message: "Only farmers can post listings" });
       }
 
-      const { cropName, quantity, unit, pricePerUnit, location, contactPhone, description } = req.body;
-      if (!cropName || !quantity || !pricePerUnit || !location) {
-        return res.status(400).json({ message: "Crop, quantity, price and location are required" });
+      const parsed = listingSchema.safeParse(req.body);
+      if (!parsed.success) {
+        return res.status(400).json({ message: parsed.error.issues[0]?.message || "Invalid listing" });
       }
+      const { cropName, quantity, unit, pricePerUnit, location, contactPhone, description } = parsed.data;
 
       const photos = (req.files || []).map((f) => `/uploads/${f.filename}`);
 
       const listing = new Listing({
         user: req.userId,
         cropName,
-        quantity: Number(quantity),
+        quantity,
         unit,
-        pricePerUnit: Number(pricePerUnit),
+        pricePerUnit,
         location,
         contactPhone,
         description,
@@ -139,7 +143,7 @@ router.get("/:id/reviews", async (req, res) => {
 });
 
 // Add a review for a listing (one per author per listing, upsert)
-router.post("/:id/reviews", auth, async (req, res) => {
+router.post("/:id/reviews", auth, listingLimiter, validate(reviewSchema), async (req, res) => {
   try {
     if (!mongoose.isValidObjectId(req.params.id)) {
       return res.status(404).json({ message: "Listing not found" });
@@ -149,13 +153,10 @@ router.post("/:id/reviews", auth, async (req, res) => {
     if (listing.user.toString() === req.userId) {
       return res.status(400).json({ message: "You can't review your own listing" });
     }
-    const rating = Number(req.body.rating);
-    if (!rating || rating < 1 || rating > 5) {
-      return res.status(400).json({ message: "Rating must be between 1 and 5" });
-    }
+    const { rating, comment, authorName } = req.body;
     const review = await Review.findOneAndUpdate(
       { listing: listing._id, author: req.userId },
-      { $set: { rating, comment: req.body.comment || "", authorName: req.body.authorName || "" } },
+      { $set: { rating, comment, authorName } },
       { new: true, upsert: true }
     );
     res.status(201).json(review);
@@ -166,7 +167,7 @@ router.post("/:id/reviews", auth, async (req, res) => {
 });
 
 // Make an offer on a listing (buyer)
-router.post("/:id/offer", auth, async (req, res) => {
+router.post("/:id/offer", auth, listingLimiter, validate(offerSchema), async (req, res) => {
   try {
     const id = mongoose.isValidObjectId(req.params.id) ? req.params.id : null;
     const listing = id ? await Listing.findById(id) : null;
@@ -179,9 +180,6 @@ router.post("/:id/offer", auth, async (req, res) => {
     }
 
     const { quantity, proposedPrice, message } = req.body;
-    if (!quantity || !proposedPrice) {
-      return res.status(400).json({ message: "Quantity and proposed price are required" });
-    }
 
     const open = listing.offers.find(
       (o) => o.buyer.toString() === req.userId && o.status === "pending"
@@ -193,9 +191,9 @@ router.post("/:id/offer", auth, async (req, res) => {
     listing.offers.push({
       buyer: req.userId,
       buyerName: req.body.buyerName || "",
-      quantity: Number(quantity),
-      proposedPrice: Number(proposedPrice),
-      message: message || "",
+      quantity,
+      proposedPrice,
+      message,
     });
     await listing.save();
     await notify(
